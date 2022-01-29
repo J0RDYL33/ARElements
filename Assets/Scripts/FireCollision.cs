@@ -13,9 +13,13 @@ public class FireCollision : MonoBehaviour
     public ARPlacementInteractable fireInteractable;
     public ARRaycastHit planeHit;
     public Pose pose;
+    public InfoSlider myInfoSlider;
     // Start is called before the first frame update
     void Start()
     {
+        myInfoSlider = FindObjectOfType<InfoSlider>();
+        myInfoSlider.PlayAnim("fire");
+
         fireInteractable = FindObjectOfType<ARPlacementInteractable>();
         planeHit = fireInteractable.s_Hits[0];
         pose = planeHit.pose;
@@ -31,6 +35,7 @@ public class FireCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "water")
         {
+            myInfoSlider.PlayAnim("steam");
             Logger.Instance.LogInfo("Collision happened between fire and water");
             Debug.Log("Collision happened between fire and water");
             Destroy(other.gameObject);
@@ -43,6 +48,7 @@ public class FireCollision : MonoBehaviour
         }
         else if (other.gameObject.tag == "air")
         {
+            myInfoSlider.PlayAnim("energy");
             Logger.Instance.LogInfo("Collision happened between fire and air");
             Debug.Log("Collision happened between fire and air");
             Destroy(other.gameObject);
@@ -55,6 +61,7 @@ public class FireCollision : MonoBehaviour
         }
         else if (other.gameObject.tag == "earth")
         {
+            myInfoSlider.PlayAnim("lava");
             Logger.Instance.LogInfo("Collision happened between fire and earth");
             Debug.Log("Collision happened between fire and earth");
             Destroy(other.gameObject);
@@ -67,6 +74,7 @@ public class FireCollision : MonoBehaviour
         }
         else if (other.gameObject.tag == "dust")
         {
+            myInfoSlider.PlayAnim("gunpowder");
             Logger.Instance.LogInfo("Collision happened between fire and dust");
             Debug.Log("Collision happened between fire and dust");
             Destroy(other.gameObject);

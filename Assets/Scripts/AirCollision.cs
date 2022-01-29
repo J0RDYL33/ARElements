@@ -11,9 +11,13 @@ public class AirCollision : MonoBehaviour
     public ARPlacementInteractable fireInteractable;
     public ARRaycastHit planeHit;
     public Pose pose;
+    public InfoSlider myInfoSlider;
     // Start is called before the first frame update
     void Start()
     {
+        myInfoSlider = FindObjectOfType<InfoSlider>();
+        myInfoSlider.PlayAnim("air");
+
         fireInteractable = FindObjectOfType<ARPlacementInteractable>();
         planeHit = fireInteractable.s_Hits[0];
         pose = planeHit.pose;
@@ -23,6 +27,7 @@ public class AirCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "earth")
         {
+            myInfoSlider.PlayAnim("dust");
             Logger.Instance.LogInfo("Collision happened between air and earth");
             Debug.Log("Collision happened between air and earth");
             Destroy(other.gameObject);
@@ -35,6 +40,7 @@ public class AirCollision : MonoBehaviour
         }
         else if (other.gameObject.tag == "water")
         {
+            myInfoSlider.PlayAnim("rain");
             Logger.Instance.LogInfo("Collision happened between air and water");
             Debug.Log("Collision happened between air and water");
             Destroy(other.gameObject);
